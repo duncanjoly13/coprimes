@@ -53,16 +53,39 @@ def plot(input, filename = "plot"):
     plt.show()
 
 def main():
-    min = int(input("Input min coprime value: "))
-    max = int(input("Input max coprime value: "))
-    minN = int(input("Input min n value: "))
-    maxN = int(input("Input max n value: "))
+    min = input("Input min coprime value: ")
+    try:
+        min = int(min)
+    except ValueError:
+        print("Invalid input!")
+        return
+
+    max = input("Input max coprime value: ")
+    try:
+        max = int(max)
+    except ValueError:
+        print("Invalid input!")
+        return
+
+    minN = input("Input min n value: ")
+    try:
+        minN = int(minN)
+    except ValueError:
+        print("Invalid input!")
+        return
+
+    maxN = input("Input max n value: ")
+    try:
+        maxN = int(maxN)
+    except ValueError:
+        print("Invalid input!")
+        return
 
     print("Generating coprimes...")
 
     coprimes = generate_values(min, max, minN, maxN)
 
-    filename = f"coprimes-{min}-to-{max}_n-{minN}-to-{maxN}.png"
+    filename = f"coprimes-{min}-to-{max}_n-{minN}-to-{maxN}"
 
     with open(filename + '.csv', mode='w') as file:
         file.write("c1, c2, result\n")
