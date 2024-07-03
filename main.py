@@ -17,7 +17,7 @@ def getCoprimes(min, max):
                 coprimes.append([i, j])
             j += 1
         i += 1
-        j = 0
+        j = 1
 
     return coprimes
 
@@ -30,6 +30,8 @@ def generate_values(min, max, minN, maxN):
         for item in coprimes:
             output.append([item[0], item[1], function(item[0], item[1], n)])
         n += 1
+
+    # TODO: make sure no results we want are deleted
 
     unique_set = {tuple(item) for item in output}
 
@@ -88,6 +90,10 @@ def main():
     filename = f"coprimes-{min}-to-{max}_n-{minN}-to-{maxN}"
 
     with open(filename + '.csv', mode='w') as file:
+        file.write(f"min: {min} \n")
+        file.write(f"max: {max} \n")
+        file.write(f"min n: {minN} \n")
+        file.write(f"max n: {maxN} \n")
         file.write("c1, c2, result\n")
         for sublist in coprimes:
             file.write(f"{sublist[0]}, {sublist[1]}, {sublist[2]}\n")
