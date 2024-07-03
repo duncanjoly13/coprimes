@@ -1,4 +1,4 @@
-# Exploring Modulate Multiples of Coprime Numbers
+# Exploring Modular Multiples of Coprime Numbers
 
 This short Python project aims to prove whether for every pair of coprime numbers [x, y] that the function 
 `(min(x, y) * n) % max(x, y)` produces each natural number less than `max(x, y)` at least once.
