@@ -83,7 +83,7 @@ def main():
         print("Invalid input!")
         return
 
-    print("Generating coprimes...")
+    print("\nGenerating coprimes...")
 
     coprimes = generate_values(min, max, minN, maxN)
 
