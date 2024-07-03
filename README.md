@@ -10,3 +10,4 @@ CSV output will be saved to "coprimes-{min}-to-{max}_n-{minN}-to-{maxN}.csv" and
 
 ##### Dependencies
 `matplotlib`
+`numpy`

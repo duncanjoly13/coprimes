@@ -1,41 +1,42 @@
 from math import gcd as gcd
 import matplotlib.pyplot as plt
+import numpy as np
 
 def coprime(a, b):
     return gcd(a, b) == 1
 
+
 def function(minP, maxP, n):
     return (n * minP) % maxP
 
-def getCoprimes(min, max):
-    i = j = min
+
+def getCoprimes(minP, maxP):
+    i = j = minP
     coprimes = []
 
-    while i <= max:
-        while j <= max:
+    while i <= maxP:
+        while j <= maxP:
             if coprime(i, j):
-                coprimes.append([i, j])
+                coprimes.append([min(i, j), max(i, j)])
+                # TODO: add values here to reduce time complexity
             j += 1
         i += 1
-        j = 1
+        j = 2
 
-    return coprimes
+    return np.unique(np.array([np.sort(sub) for sub in coprimes]), axis=0)
 
-def generate_values(min, max, minN, maxN):
-    coprimes = getCoprimes(min, max)
-    n = minN
+
+def generateResults(minP, maxP, minN, maxN):
+    coprimes = getCoprimes(minP, maxP)
     output = []
 
-    while n <= maxN:
-        for item in coprimes:
-            output.append([item[0], item[1], function(item[0], item[1], n)])
-        n += 1
+    for pair in coprimes:
+        n = minN
+        while n <= maxN:
+            output.append([pair[0], pair[1], function(pair[0], pair[1], n)])
+            n += 1
 
-    # TODO: make sure no results we want are deleted
-
-    unique_set = {tuple(item) for item in output}
-
-    return sorted(list(item) for item in unique_set)
+    return sorted(list(set(map(lambda i: tuple(i), output))))
 
 def plot(input, filename = "plot"):
     x = [item[0] for item in input]
@@ -54,17 +55,18 @@ def plot(input, filename = "plot"):
 
     plt.show()
 
-def main():
-    min = input("Input min coprime value: ")
+
+def main(makePlot = False):
+    minP = input("Input min coprime value: ")
     try:
-        min = int(min)
+        minP = int(minP)
     except ValueError:
         print("Invalid input!")
         return
 
-    max = input("Input max coprime value: ")
+    maxP = input("Input max coprime value: ")
     try:
-        max = int(max)
+        maxP = int(maxP)
     except ValueError:
         print("Invalid input!")
         return
@@ -85,25 +87,26 @@ def main():
 
     print("\nGenerating coprimes...")
 
-    coprimes = generate_values(min, max, minN, maxN)
+    coprimes = generateResults(minP, maxP, minN, maxN)
 
-    filename = f"coprimes-{min}-to-{max}_n-{minN}-to-{maxN}"
+    filename = f"coprimes-{minP}-to-{maxP}_n-{minN}-to-{maxN}"
 
     with open(filename + '.csv', mode='w') as file:
-        file.write(f"min: {min} \n")
-        file.write(f"max: {max} \n")
+        file.write(f"min: {minP} \n")
+        file.write(f"max: {maxP} \n")
         file.write(f"min n: {minN} \n")
-        file.write(f"max n: {maxN} \n")
+        file.write(f"max n: {maxN} \n\n")
         file.write("c1, c2, result\n")
         for sublist in coprimes:
             file.write(f"{sublist[0]}, {sublist[1]}, {sublist[2]}\n")
         file.close()
 
-    print("Done!\nPlotting results...")
+    if makePlot:
+        print("\nDone!\nPlotting results...")
+        plot(coprimes, filename)
+    else:
+        print("\nDone!")
 
-    plot(coprimes, filename)
-
-    print("Done!")
 
 if __name__ == '__main__':
     main()
