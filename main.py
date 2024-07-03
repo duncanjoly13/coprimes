@@ -89,7 +89,7 @@ def main():
     if makePlot.lower() == "y":
         makePlot = True
         print("Will generate plot")
-    elif makePlot.lower() == "n":
+    elif makePlot.lower() == "n" or makePlot == "":
         makePlot = False
         print("Will not generate plot")
     else:
