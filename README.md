@@ -8,7 +8,7 @@ This short Python project aims to prove whether for every pair of coprime number
 
 CSV output will be saved to "coprimes-**{minP}**-to-**{maxP}**_n-**{minN}**-to-**{maxN}**.csv" and a plot will be saved
 to "coprimes-**{minP}**-to-**{maxP}**_n-**{minN}**-to-**{maxN}**.png", where the bold entries are replaced by their
-respective values
+respective values.
 
 ##### Dependencies
 `matplotlib`
