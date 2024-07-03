@@ -56,7 +56,7 @@ def plot(input, filename = "plot"):
     plt.show()
 
 
-def main(makePlot = False):
+def main():
     minP = input("Input min coprime value: ")
     try:
         minP = int(minP)
@@ -82,6 +82,17 @@ def main(makePlot = False):
     try:
         maxN = int(maxN)
     except ValueError:
+        print("Invalid input!")
+        return
+
+    makePlot = input("Generate plot? (y/[n]): ")
+    if makePlot.lower() == "y":
+        makePlot = True
+        print("Will generate plot")
+    elif makePlot.lower() == "n":
+        makePlot = False
+        print("Will not generate plot")
+    else:
         print("Invalid input!")
         return
 
